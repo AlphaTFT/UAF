@@ -29,6 +29,11 @@ public class ProcessResponse {
 
 	// Gson gson = new Gson ();
 
+	/**
+	 * 21. verify auth response
+	 * @param resp
+	 * @return
+	 */
 	public AuthenticatorRecord[] processAuthResponse(AuthenticationResponse resp) {
 		AuthenticatorRecord[] result = null;
 		try {
@@ -46,6 +51,11 @@ public class ProcessResponse {
 		return result;
 	}
 
+	/**
+	 * 24. Verify KRD signature, verify attestation, and store new Uauth.pub key on behalf of user
+	 * @param resp
+	 * @return
+	 */
 	public RegistrationRecord[] processRegResponse(RegistrationResponse resp) {
 		RegistrationRecord[] result = null;
 		try {

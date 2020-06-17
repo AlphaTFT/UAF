@@ -45,6 +45,10 @@ public class RegistrationRequestGeneration {
 		this.acceptedAaids = acceptedAaids;
 	}
 
+	/**
+	 * 7. Generate authenticator policy
+	 * @return
+	 */
 	public Policy constructAuthenticationPolicy() {
 		if (acceptedAaids == null) {
 			return null;
@@ -63,6 +67,13 @@ public class RegistrationRequestGeneration {
 		return p;
 	}
 
+	/**
+	 * Registration Request Processing
+	 * challenge 및 serverData 생성
+	 * @param username
+	 * @param notary
+	 * @return
+	 */
 	public RegistrationRequest createRegistrationRequest(String username,
 			Notary notary) {
 		String challenge = generateChallenge();

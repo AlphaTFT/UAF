@@ -65,6 +65,12 @@ public class RegistrationResponseProcessing {
 		this.certificateValidator = certificateValidator;
 	}
 
+	/**
+	 * version, serverData, FinalChallengeParams 검증
+	 * @param response
+	 * @return
+	 * @throws Exception
+	 */
 	public RegistrationRecord[] processResponse(RegistrationResponse response)
 			throws Exception {
 		checkAssertions(response);
@@ -81,6 +87,12 @@ public class RegistrationResponseProcessing {
 		return records;
 	}
 
+	/**
+	 * verify Assertions
+	 * @param authenticatorRegistrationAssertion
+	 * @param record
+	 * @return
+	 */
 	private RegistrationRecord processAssertions(
 			AuthenticatorRegistrationAssertion authenticatorRegistrationAssertion,
 			RegistrationRecord record) {
@@ -124,6 +136,14 @@ public class RegistrationResponseProcessing {
 		return record;
 	}
 
+	/**
+	 * verify attestation signature
+	 * @param tags
+	 * @param record
+	 * @throws NoSuchAlgorithmException
+	 * @throws IOException
+	 * @throws Exception
+	 */
 	private void verifyAttestationSignature(Tags tags, RegistrationRecord record)
 			throws NoSuchAlgorithmException, IOException, Exception {
 		byte[] certBytes = tags.getTags().get(TagsEnum.TAG_ATTESTATION_CERT.id).value;

@@ -36,6 +36,11 @@ public class FetchRequest {
 		this.aaids = aaids;
 	}
 
+	/**
+	 * generate request request
+	 * @param username
+	 * @return
+	 */
 	public RegistrationRequest getRegistrationRequest(String username) {
 		RegistrationRequest request = new RegistrationRequestGeneration(appId,
 				aaids).createRegistrationRequest(username,
@@ -43,6 +48,10 @@ public class FetchRequest {
 		return request;
 	}
 
+	/**
+	 * 4. generate auth request
+	 * @return
+	 */
 	public AuthenticationRequest getAuthenticationRequest() {
 		AuthenticationRequest authReq = new AuthenticationRequestGeneration(
 				appId, aaids).createAuthenticationRequest(NotaryImpl

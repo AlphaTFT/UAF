@@ -114,6 +114,13 @@ public class FidoUafResource {
 		return StorageImpl.getInstance().dbDump();
 	}
 
+	/**
+	 * Registration Request Processing
+	 * 6. Signal initiation of UAF Registration Operation
+	 * 9. HTTP OK + UAF Reg. request + webapp JS + webapp session binding
+	 * @param username
+	 * @return
+	 */
 	@GET
 	@Path("/public/regRequest/{username}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -123,6 +130,11 @@ public class FidoUafResource {
 		return regReqPublic(username);
 	}
 
+	/**
+	 * 8. UAF Reg. Request ( + authn r policy )
+	 * @param username
+	 * @return
+	 */
 	private RegistrationRequest[] regReqPublic(String username){
 		RegistrationRequest[] regReq = new RegistrationRequest[1];
 		regReq[0] = new FetchRequest(getAppId(), getAllowedAaids())
@@ -159,6 +171,11 @@ public class FidoUafResource {
 	 *
 	 * @return  list of allowed AAID - Authenticator Attestation ID.
 	 */
+	/**
+	 * Registration Request Processing
+	 * 6.5 get allowed Authenticators
+	 * @return
+	 */
 	private String[] getAllowedAaids() {
 		String[] ret = { "EBA0#0001", "0015#0001", "0012#0002", "0010#0001",
 				"4e4e#0001", "5143#0001", "0011#0701", "0013#0001",
@@ -183,6 +200,12 @@ public class FidoUafResource {
 	 * For iOS, the facet id is the URI ios:bundle-id:<ios-bundle-id-of-app>.
 	 *
 	 * @return List of trusted Application Facet ID.
+	 */
+
+	/**
+	 * 11a. Fetch list of FacetIDs identified by AppID (URI)
+	 * 11b. return FacetID list
+	 * @return
 	 */
 	@GET
 	@Path("/public/uaf/facets")
@@ -235,6 +258,12 @@ public class FidoUafResource {
 //		return "https://www.head2toes.org/fidouaf/v1/public/uaf/facets";
 	}
 
+	/**
+	 * 23.send UAF Reg.response
+	 * 26. send content for completed registration
+	 * @param payload
+	 * @return
+	 */
 	@POST
 	@Path("/public/regResponse")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -280,6 +309,10 @@ public class FidoUafResource {
 		return new DeregRequestProcessor().process(payload);
 	}
 
+	/**
+	 * 3. trigger UAF auth request
+	 * @return
+	 */
 	@GET
 	@Path("/public/authRequest")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -346,6 +379,13 @@ public class FidoUafResource {
 		return ret;
 	}
 
+
+	/**
+	 * 20. send UAF auth response
+	 * 22. send verification result
+	 * @param payload
+	 * @return
+	 */
 	@POST
 	@Path("/public/authResponse")
 	@Consumes(MediaType.APPLICATION_JSON)
